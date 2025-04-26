@@ -34,62 +34,56 @@ int main(void)
         n++;
         if(password==2025)
         break;
-        if(n<=2)
-        printf("還剩%d次\n",(3-n));
-        if(n==3){
-                    printf("錯誤三次不能輸入了");
-                    return 0;
-				}
+        if(n<2){
+        	printf("還剩%d次\n",(3-n));
+		}else{
+			printf("錯誤三次不能輸入了");
+            return 0;
+		}
     }
     while(n<3);
     system("cls");/*清除當前畫面*/
-	printf("( a.直角三角形 )\n"); 
-	printf("( b.顯示乘法表 )\n"); 
-	printf("( c.結束 )\n"); 
-	printf("請輸入字元\n"); 
-    scanf("%c",&ch);
-    switch (ch) 
-	{
-        case 'a': 
+    do{
+	    printf("( a.直角三角形 )\n"); 
+	    printf("( b.顯示乘法表 )\n"); 
+	    printf("( c.結束 )\n"); 
+	    printf("請輸入字元\n"); 
+        scanf(" %c",&ch);
+        switch (ch) 
 	    {
-            int i, j, h;
-            printf("請輸入三角形的高度: ");
-            scanf("%d", &h);
-            for (i = 1; i <= h; i++) 
-		    {
-                for (j = 1; j <= i; j++) {
-                    printf("*");
+            case 'a': 
+	        {
+                int i, j, h;
+                printf("請輸入三角形的高度: ");
+                scanf("%d", &h);
+                for (i = 1; i <= h; i++) 
+		        {
+                    for (j = 1; j <= i; j++) {
+                        printf("*");
+                    }
+                    printf("\n");
                 }
-                printf("\n");
+                break;
             }
-            break;
-        }
-        case 'b': 
-	    {
-            int i, j;
-            for (i = 1; i <= 9; i++)
-		    {
-                for (j = 1; j <= 9; j++) {
-                    printf("%d×%d = %2d  ", i, j, i * j);
+            case 'b': 
+	        {
+                int i, j;
+                for (i = 1; i <= 9; i++)
+		        {
+                    for (j = 1; j <= 9; j++) {
+                        printf("%d×%d = %2d  ", i, j, i * j);
+                    }
+                    printf("\n");
                 }
-                printf("\n");
+                break;
             }
-            break;
-        }
-        case 'c':
-            printf("結束選單\n");
-            break;
-        default:
-            printf("無效選項，請重新輸入。\n");
+            case 'c':
+                printf("結束選單\n");
+                break;
+            default:
+                printf("無效選項，請重新輸入。\n");
+        } 
     }
-        if(ch != 'c'){
-            return 0;
-        }
-            else {
-            n++;
-            printf("輸入錯誤，剩餘嘗試次數: %d\n", 3 -n);
-        }
-    printf("錯誤次數過多，系統停止\n");
-    system("pause");
+        while(ch != 'c');	
     return 0;
 }
