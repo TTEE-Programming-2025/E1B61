@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <ctype.h>
 int main(void) 
 {
     int password,n=0;//宣告變數
@@ -82,13 +83,28 @@ int main(void)
                 getch();
                 break;
             }
-            case 'c':
-                printf("結束選單\n");
+            case 'c':{
+				char confirm;
+                do {
+                    printf("\nContinue? (y/n)：");
+                    scanf(" %c", &confirm);
+                    confirm = tolower(confirm);
+                    if (confirm == 'y') {
+                        break;
+                    } else if (confirm == 'n') {
+                        printf("\n程式結束，感謝使用！\n");
+                        return 0;
+                    } else {
+                        printf("無效輸入，請輸入 y 或 n。\n");
+                    }
+                } while (1);
                 break;
+            }
             default:
                 printf("無效選項，請重新輸入。\n");
+                system("pause");
         } 
     }
-        while(ch != 'c');	
+        while(1);	
     return 0;
 }
