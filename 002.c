@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 int main(void) 
 {
     int password,n=0;//宣告變數
@@ -63,6 +64,8 @@ int main(void)
                     }
                     printf("\n");
                 }
+                printf("按任意鍵返回主選單...\n");
+                getch();
                 break;
             }
             case 'b': 
@@ -75,6 +78,8 @@ int main(void)
                     }
                     printf("\n");
                 }
+                printf("按任意鍵返回主選單...\n");
+                getch();
                 break;
             }
             case 'c':
