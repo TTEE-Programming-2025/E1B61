@@ -2,6 +2,34 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+void displaySeats(char seats[9][9]) {
+    printf(" \\123456789\n");
+    int i,j;
+    for (i = 8; i >= 0; i--) {
+        printf("%d", i + 1);
+        for (j = 0; j < 9; j++) {
+            printf("%c", seats[i][j]);
+        }
+        printf("\n");
+    }
+}
+void initializeSeats(char seats[9][9]) {
+	int i,j;
+    for (i = 0; i < 9; i++) {
+        for (j = 0; j < 9; j++) {
+            seats[i][j] = '-';
+        }
+    }
+    srand(time(NULL));
+    int z;
+    for (z= 0; z< 10; z++) {
+        int row = rand() % 9;
+        int col = rand() % 9;
+        if (seats[row][col] == '-') {
+            seats[row][col] = '*';
+        }
+    }
+}
 int main(void) 
 {
     int password,n=0;
@@ -47,35 +75,9 @@ int main(void)
             return 0;
 		}
     }while(1);
-    system("cls");
-    void displaySeats(char seats[9][9]) {
-    printf(" \\123456789\n");
-    int i,j;
-    for (i = 8; i >= 0; i--) {
-        printf("%d", i + 1);
-        for (j = 0; j < 9; j++) {
-            printf("%c", seats[i][j]);
-        }
-        printf("\n");
-    }
-}
-void initializeSeats(char seats[9][9]) {
-	int i,j;
-    for (i = 0; i < 9; i++) {
-        for (j = 0; j < 9; j++) {
-            seats[i][j] = '-';
-        }
-    }
-    srand(time(NULL));
-    int z;
-    for (z= 0; z< 10; z++) {
-        int row = rand() % 9;
-        int col = rand() % 9;
-        if (seats[row][col] == '-') {
-            seats[row][col] = '*';
-        }
-    }
-}
+    initializeSeats(seats);
+    while (running){
+	system("cls");
     printf(" ----------[Booking System]----------\n");
     printf(" | a. Available seats               |\n");
     printf(" | b. Arrange for you              |\n");
@@ -90,12 +92,12 @@ void initializeSeats(char seats[9][9]) {
         system("cls");
         printf("目前座位如下：\n");
         displaySeats(seats);
-        system("pause");
+        printf("按任意鍵返回主選單...\n");
+        getchar();
         break;
         case 'b':
 		{
-            int need;
-            int found = 0;
+            int need,found = 0;
             int i,j,k;
             printf("需要幾個座位？(1~4): ");
             scanf("%d", &need);
@@ -103,7 +105,8 @@ void initializeSeats(char seats[9][9]) {
             if (need < 1 || need > 4) 
 			{
                 printf("輸入錯誤。\n");
-                system("pause");
+                printf("按任意鍵返回主選單...\n");
+                getchar();
                 break;
             }
             for (i = 0; i < 9 && !found; i++) {
@@ -148,8 +151,8 @@ void initializeSeats(char seats[9][9]) {
                 if (!found) {
                     printf("找不到連續的 %d 個空位。\n", need);
                 }
-
-                system("pause");
+                printf("按任意鍵返回主選單...\n");
+                getchar();
                 break;
             }
 
@@ -169,7 +172,6 @@ void initializeSeats(char seats[9][9]) {
                             printf("超出範圍，請重新輸入。\n");
                             continue;
                         }
-
                         if (seats[9 - row][col - 1] == '-') {
                             seats[9 - row][col - 1] = '@';
                             count++;
@@ -193,10 +195,28 @@ void initializeSeats(char seats[9][9]) {
                         }
                     }
                 }
-                system("pause");
+                printf("按任意鍵返回主選單...\n");
+                getchar();
                 break;
             }
+            case 'd': {
+                char confirm;
+                printf("確定要結束程式嗎？(y/n): ");
+                scanf(" %c", &confirm);
+                if (confirm == 'y' || confirm == 'Y') {
+                    running = 0;
+                }
+                break;
+            }
+
+            default:
+                printf("輸入錯誤，請重新選擇。\n");
+                printf("按任意鍵返回主選單...\n");
+                getchar();
+                break;
+        }
     }
     return 0;
 }
+
 
