@@ -15,6 +15,7 @@ struct Student students[MAX];
 int studentCount = 0;
 void enterGrades();
 void displayGrades();
+void searchGrades();
 int main(void) 
 {
     int password,n=0;
@@ -77,13 +78,16 @@ int main(void)
             case 'b':
                 system("cls");
                 displayGrades();
-                printf("按任意鍵繼續...");
+                system("pause");
                 getchar();
                 system("cls");
                 break;
             case 'c':
-                printf("你選擇了：搜尋成績\n");
+                system("cls");
+                searchGrades();
                 system("pause");
+                getchar();
+                system("cls");
                 break;
             case 'd':
                 printf("你選擇了：成績排名\n");
@@ -170,6 +174,28 @@ void displayGrades() {
     }
     printf("-----------------------------------------------------------\n");
 }
-	
+void searchGrades() {
+    char searchName[50];
+    int i, found = 0;
+    printf("請輸入要搜尋的學生姓名：");
+    scanf("%s", searchName);
+
+    for (i = 0; i < studentCount; i++) {
+        if (strcmp(students[i].name, searchName) == 0) {
+            printf("\n找到學生資料：\n");
+            printf("姓名：%s\n", students[i].name);
+            printf("學號：%s\n", students[i].id);
+            printf("數學：%d\n", students[i].math);
+            printf("物理：%d\n", students[i].physics);
+            printf("英文：%d\n", students[i].english);
+            printf("平均分數：%.1f\n", students[i].average);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("\n資料不存在！\n");
+    }
+}	
 	
 	
