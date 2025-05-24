@@ -16,6 +16,7 @@ int studentCount = 0;
 void enterGrades();
 void displayGrades();
 void searchGrades();
+void gradeRanking();
 int main(void) 
 {
     int password,n=0;
@@ -90,18 +91,33 @@ int main(void)
                 system("cls");
                 break;
             case 'd':
-                printf("你選擇了：成績排名\n");
+                system("cls");
+                gradeRanking();
                 system("pause");
+                getchar();
+                system("cls");
                 break;
-            case 'e':
-                printf("系統結束，掰掰！\n");
+            case 'e':{
+                char confirm;
+                do {
+                    printf("確定離開？ (y/n): ");
+                    scanf(" %c", &confirm);
+                    getchar();
+                    if (confirm == 'y' || confirm == 'Y') {
+                        printf("系統結束，掰掰！\n");
+                        return 0;
+                    } else if (confirm == 'n' || confirm == 'N') {
+                        break;
+                    }
+                } while (1);
                 break;
+            }
             default:
                 printf("無效選項，請重新輸入。\n");
                 system("pause");
                 break;
         }
-    } while (choice != 'e');
+    } while(1);
     return 0;
 }
 void enterGrades() {
@@ -196,6 +212,33 @@ void searchGrades() {
     if (!found) {
         printf("\n資料不存在！\n");
     }
-}	
+}
+void gradeRanking() {
+    int i, j;
+    struct Student temp[MAX];
+    for (i = 0; i < studentCount; i++) {
+        temp[i] = students[i];
+    }
+    for (i = 0; i < studentCount -1; i++) {
+        for (j = 0; j < studentCount -1 - i; j++) {
+            if (temp[j].average < temp[j+1].average) {
+                struct Student t = temp[j];
+                temp[j] = temp[j+1];
+                temp[j+1] = t;
+            }
+        }
+    }
+    printf("成績排名如下（依平均分數由高到低）：\n");
+    printf("-----------------------------------------\n");
+    printf("| 姓名          | 學號      | 平均分數    |\n");
+    printf("-----------------------------------------\n");
+    for (i = 0; i < studentCount; i++) {
+        printf("| %-12s | %-8s | %7.1f    |\n",
+            temp[i].name,
+            temp[i].id,
+            temp[i].average);
+    }
+    printf("-----------------------------------------\n");
+}
 	
 	
