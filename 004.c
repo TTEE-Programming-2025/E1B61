@@ -5,7 +5,7 @@
 struct Student 
 {
     char name[50];
-    int id;
+    char id[10];
     int math;
     int physics;
     int english;
@@ -65,7 +65,7 @@ int main(void)
         printf(" | d. Grade ranking                  |\n");
         printf(" | e. Exit system                    |\n");
         printf(" ------------------------------------\n");
-        printf("請選擇功能(a~e): ");
+        printf("請選擇a~e: ");
         scanf(" %c", &choice);
         getchar();
         switch (choice) {
@@ -97,7 +97,7 @@ int main(void)
     return 0;
 }
 void enterGrades() {
-    int n,i;
+    int n,i,j;
     system("cls");
     do {
         printf("請輸入學生數量 (5~10): ");
@@ -113,9 +113,18 @@ void enterGrades() {
         scanf("%s", students[i].name);
         while (1) {
             printf("學號（6 位數）：");
-            scanf("%d", &students[i].id);
-            if (students[i].id >= 100000 && students[i].id <= 999999) break;
-            printf("錯誤：學號必須為 6 位整數！\n");
+            scanf("%s", students[i].id);
+            if (strlen(students[i].id) == 6) {
+                int valid = 1;
+                for (j = 0; j < 6; j++) {
+                    if (students[i].id[j] < '0' || students[i].id[j] > '9') {
+                        valid = 0;
+                        break;
+                    }
+                }
+                if (valid) break;
+            }
+            printf("錯誤：學號必須為 6 位數字！\n");
         }
         while (1) {
             printf("數學成績（0~100）：");
