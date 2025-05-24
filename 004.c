@@ -14,6 +14,7 @@ struct Student
 struct Student students[MAX];
 int studentCount = 0;
 void enterGrades();
+void displayGrades();
 int main(void) 
 {
     int password,n=0;
@@ -74,8 +75,11 @@ int main(void)
                 system("pause");
                 break;
             case 'b':
-                printf("你選擇了：顯示成績\n");
-                system("pause");
+                system("cls");
+                displayGrades();
+                printf("按任意鍵繼續...");
+                getchar();
+                system("cls");
                 break;
             case 'c':
                 printf("你選擇了：搜尋成績\n");
@@ -149,7 +153,23 @@ void enterGrades() {
     printf("\n所有資料輸入完成！\n");
     system("pause");
 }
-
+void displayGrades() {
+    int i;
+    printf("所有學生成績如下：\n");
+    printf("-----------------------------------------------------------\n");
+    printf("| 姓名          | 學號      | 數學 | 物理 | 英文 | 平均分數 |\n");
+    printf("-----------------------------------------------------------\n");
+    for (i = 0; i < studentCount; i++) {
+        printf("| %-12s | %-8s | %4d | %4d | %4d | %7.1f |\n",
+            students[i].name,
+            students[i].id,
+            students[i].math,
+            students[i].physics,
+            students[i].english,
+            students[i].average);
+    }
+    printf("-----------------------------------------------------------\n");
+}
 	
 	
 	
